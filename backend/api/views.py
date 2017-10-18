@@ -1,3 +1,13 @@
-from django.shortcuts import render
+from django.http.response import HttpResponse
 
-# Create your views here.
+
+def brand_names(request):
+    return HttpResponse('Brand Names')
+
+
+def player_names(request):
+    return HttpResponse('Player Names')
+
+
+def team_names(request):
+    return HttpResponse('Team Names')
