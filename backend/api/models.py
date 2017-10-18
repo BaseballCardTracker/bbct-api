@@ -11,3 +11,7 @@ class PlayerName(models.Model):
 
 class TeamName(models.Model):
     team_name = models.CharField(max_length=25)
+
+
+class Position(models.Model):
+    position = models.CharField(max_length=25)

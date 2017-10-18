@@ -11,3 +11,7 @@ def player_names(request):
 
 def team_names(request):
     return HttpResponse('Team Names')
+
+
+def positions(request):
+    return HttpResponse('Positions')

@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^brand_names/', views.brand_names),
     url(r'^player_names/', views.player_names),
     url(r'^team_names/', views.team_names),
+    url(r'^positions/', views.positions),
 ]
