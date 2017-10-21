@@ -14,25 +14,27 @@ class BbctTests:
 
 class BrandNameTests(TestCase, BbctTests):
     def setUp(self):
+        self.model_class = BrandName
+        self.fields = {'brand_name': 'Topps'}
         self.url = reverse('brand-names')
         self.client = Client()
 
     def test_get_brand_names(self):
-        expected = {'brand_name': 'Topps'}
-        BrandName.objects.create(**expected)
+        self.model_class.objects.create(**self.fields)
         response = self.client.get(self.url)
         result = json.loads(response.json())
-        self.assertEqual(expected, result[0]['fields'])
+        self.assertEqual(self.fields, result[0]['fields'])
 
 
 class PlayerNameTests(TestCase, BbctTests):
     def setUp(self):
+        self.model_class = PlayerName
+        self.fields = {'player_name': 'Alex Fernandez'}
         self.url = reverse('player-names')
         self.client = Client()
 
     def test_get_player_names(self):
-        expected = {'player_name': 'Alex Fernandez'}
-        PlayerName.objects.create(**expected)
+        self.model_class.objects.create(**self.fields)
         response = self.client.get(self.url)
         result = json.loads(response.json())
-        self.assertEqual(expected, result[0]['fields'])
+        self.assertEqual(self.fields, result[0]['fields'])
