@@ -18,10 +18,10 @@ class BrandNameTests(TestCase, BbctTests):
         self.client = Client()
 
     def test_get_brand_names(self):
-        brand_name = BrandName.objects.create(brand_name='Topps')
+        expected = {'brand_name': 'Topps'}
+        BrandName.objects.create(**expected)
         response = self.client.get(self.url)
         result = json.loads(response.json())
-        expected = {'brand_name': brand_name.brand_name}
         self.assertEqual(expected, result[0]['fields'])
 
 
@@ -31,8 +31,8 @@ class PlayerNameTests(TestCase, BbctTests):
         self.client = Client()
 
     def test_get_player_names(self):
-        player_name = PlayerName.objects.create(player_name='Alex Fernandez')
+        expected = {'player_name': 'Alex Fernandez'}
+        PlayerName.objects.create(**expected)
         response = self.client.get(self.url)
         result = json.loads(response.json())
-        expected = {'player_name': player_name.player_name}
         self.assertEqual(expected, result[0]['fields'])
