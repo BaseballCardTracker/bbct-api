@@ -1,7 +1,7 @@
 from django.core import serializers
 from django.http.response import HttpResponse, JsonResponse
 
-from api.models import BrandName, PlayerName
+from api.models import BrandName, PlayerName, TeamName
 
 
 def get_brand_names(request):
@@ -17,7 +17,9 @@ def get_player_names(request):
 
 
 def get_team_names(request):
-    return HttpResponse('Team Names')
+    team_names = TeamName.objects.all()
+    json = serializers.serialize('json', team_names)
+    return JsonResponse(json, safe=False)
 
 
 def get_positions(request):
