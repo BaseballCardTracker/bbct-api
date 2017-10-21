@@ -4,22 +4,22 @@ from django.http.response import HttpResponse, JsonResponse
 from api.models import BrandName, PlayerName, TeamName
 
 
-def get_brand_names(request):
-    brand_names = BrandName.objects.all()
-    json = serializers.serialize('json', brand_names)
+def get_objects(model_class):
+    objects = model_class.objects.all()
+    json = serializers.serialize('json', objects)
     return JsonResponse(json, safe=False)
+
+
+def get_brand_names(request):
+    return get_objects(BrandName)
 
 
 def get_player_names(request):
-    player_names = PlayerName.objects.all()
-    json = serializers.serialize('json', player_names)
-    return JsonResponse(json, safe=False)
+    return get_objects(PlayerName)
 
 
 def get_team_names(request):
-    team_names = TeamName.objects.all()
-    json = serializers.serialize('json', team_names)
-    return JsonResponse(json, safe=False)
+    return get_objects(TeamName)
 
 
 def get_positions(request):
