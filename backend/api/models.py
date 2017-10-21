@@ -2,7 +2,7 @@ from django.db import models
 
 
 class BrandName(models.Model):
-    band_name = models.CharField(max_length=25)
+    brand_name = models.CharField(max_length=25)
 
 
 class PlayerName(models.Model):
