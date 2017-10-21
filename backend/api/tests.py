@@ -1,3 +1,4 @@
+import json
 from django.test import TestCase, Client
 from django.urls import reverse
 
@@ -16,4 +17,6 @@ class BrandNameTests(TestCase):
     def test_get_brand_name(self):
         brand_name = BrandName.objects.create(brand_name='Topps')
         response = self.client.get(self.url)
-        self.assertEqual(brand_name, response.json())
+        result = json.loads(response.json())
+        expected = {'brand_name': brand_name.brand_name}
+        self.assertEqual(expected, result[0]['fields'])
