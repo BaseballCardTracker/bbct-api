@@ -1,7 +1,7 @@
 from django.core import serializers
-from django.http.response import HttpResponse, JsonResponse
+from django.http.response import JsonResponse
 
-from api.models import BrandName, PlayerName, TeamName
+from api.models import BrandName, PlayerName, TeamName, Position
 
 
 def get_objects(model_class):
@@ -23,4 +23,4 @@ def get_team_names(request):
 
 
 def get_positions(request):
-    return HttpResponse('Positions')
+    return get_objects(Position)

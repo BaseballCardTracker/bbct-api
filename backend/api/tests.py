@@ -3,7 +3,7 @@ import json
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from api.models import BrandName, PlayerName, TeamName
+from api.models import BrandName, PlayerName, TeamName, Position
 
 
 class BbctTests:
@@ -39,4 +39,12 @@ class TeamNameTests(TestCase, BbctTests):
         self.model_class = TeamName
         self.fields = {'team_name': 'White Sox'}
         self.url = reverse('team-names')
+        self.client = Client()
+
+
+class PositionTests(TestCase, BbctTests):
+    def setUp(self):
+        self.model_class = Position
+        self.fields = {'position': 'Pitcher'}
+        self.url = reverse('positions')
         self.client = Client()
