@@ -6,6 +6,6 @@ class EndPointTests(TestCase):
         self.client = Client()
 
     def test_brand_names(self):
-        url = '/brand_names/'
+        url = '/api/brand_names/'
         response = self.client.get(url)
         self.assertEqual(200, response.status_code)
