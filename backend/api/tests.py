@@ -7,11 +7,11 @@ from api.models import BrandName, PlayerName, TeamName, Position
 
 
 class BbctTests:
-    def test_endpoint_exists(self):
+    def test_get_status_code(self):
         response = self.client.get(self.url)
         self.assertEqual(200, response.status_code)
 
-    def test_get(self):
+    def test_get_data(self):
         self.model_class.objects.create(**self.fields)
         response = self.client.get(self.url)
         result = json.loads(response.json())
