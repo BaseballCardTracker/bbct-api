@@ -1,10 +1,11 @@
 from django.conf.urls import url
 
-from api import views
+from api.models import BrandName, Position, TeamName, PlayerName
+from api.views import ModelListView
 
 urlpatterns = [
-    url(r'^brand_names/', views.get_brand_names, name='brand-names'),
-    url(r'^player_names/', views.get_player_names, name='player-names'),
-    url(r'^team_names/', views.get_team_names, name='team-names'),
-    url(r'^positions/', views.get_positions, name='positions'),
+    url(r'^brand_names/', ModelListView.as_view(model_class=BrandName), name='brand-names'),
+    url(r'^player_names/', ModelListView.as_view(model_class=PlayerName), name='player-names'),
+    url(r'^team_names/', ModelListView.as_view(model_class=TeamName), name='team-names'),
+    url(r'^positions/', ModelListView.as_view(model_class=Position), name='positions'),
 ]
