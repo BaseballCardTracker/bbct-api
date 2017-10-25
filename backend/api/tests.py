@@ -17,6 +17,15 @@ class BbctTests:
         result = json.loads(response.json())
         self.assertEqual(self.fields, result[0]['fields'])
 
+    def test_post_status_code(self):
+        response = self.client.post(self.url, data=self.fields)
+        self.assertEqual(200, response.status_code)
+
+    def test_post_data(self):
+        response = self.client.post(self.url, data=self.fields)
+        data = json.loads(response.json())
+        self.assertEqual(self.fields, data['fields'])
+
 
 class BrandNameTests(TestCase, BbctTests):
     def setUp(self):
