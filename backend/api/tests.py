@@ -18,11 +18,13 @@ class BbctTests:
         self.assertEqual(self.fields, result[0]['fields'])
 
     def test_post_status_code(self):
-        response = self.client.post(self.url, data=self.fields)
+        fields_json = json.dumps(self.fields)
+        response = self.client.post(self.url, data=fields_json, content_type='application/json')
         self.assertEqual(200, response.status_code)
 
     def test_post_data(self):
-        response = self.client.post(self.url, data=self.fields)
+        fields_json = json.dumps(self.fields)
+        response = self.client.post(self.url, data=fields_json, content_type='application/json')
         data = json.loads(response.json())
         self.assertEqual(self.fields, data[0]['fields'])
 
