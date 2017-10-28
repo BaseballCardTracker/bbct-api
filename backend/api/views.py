@@ -7,6 +7,12 @@ class ModelListView(View):
     model_class = None
 
     def get(self, request):
-        objects = self.model_class.objects.all()
-        json = serializers.serialize('json', objects)
+        models = self.model_class.objects.all()
+        json = serializers.serialize('json', models)
+        return JsonResponse(json, safe=False)
+
+    def post(self, request):
+        fields = request.POST
+        model = self.model_class.objects.create(**fields)
+        json = serializers.serialize('json', [model])
         return JsonResponse(json, safe=False)

@@ -24,7 +24,7 @@ class BbctTests:
     def test_post_data(self):
         response = self.client.post(self.url, data=self.fields)
         data = json.loads(response.json())
-        self.assertEqual(self.fields, data['fields'])
+        self.assertEqual(self.fields, data[0]['fields'])
 
 
 class BrandNameTests(TestCase, BbctTests):
