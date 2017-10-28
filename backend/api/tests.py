@@ -7,24 +7,17 @@ from api.models import BrandName, PlayerName, TeamName, Position
 
 
 class BbctTests:
-    def test_get_status_code(self):
-        response = self.client.get(self.url)
-        self.assertEqual(200, response.status_code)
-
-    def test_get_data(self):
+    def test_get(self):
         self.model_class.objects.create(**self.fields)
         response = self.client.get(self.url)
+        self.assertEqual(200, response.status_code)
         result = json.loads(response.json())
         self.assertEqual(self.fields, result[0]['fields'])
 
-    def test_post_status_code(self):
+    def test_post(self):
         fields_json = json.dumps(self.fields)
         response = self.client.post(self.url, data=fields_json, content_type='application/json')
         self.assertEqual(200, response.status_code)
-
-    def test_post_data(self):
-        fields_json = json.dumps(self.fields)
-        response = self.client.post(self.url, data=fields_json, content_type='application/json')
         data = json.loads(response.json())
         self.assertEqual(self.fields, data[0]['fields'])
 
