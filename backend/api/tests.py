@@ -27,11 +27,12 @@ class BbctTests:
         self.assertEqual(query, result[0]['fields'])
 
     def test_post(self):
-        fields_json = json.dumps(self.fields[0])
+        fields_json = json.dumps(self.fields)
         response = self.client.post(self.url, data=fields_json, content_type='application/json')
         self.assertEqual(200, response.status_code)
         data = json.loads(response.json())
-        self.assertEqual(self.fields[0], data[0]['fields'])
+        for expected, actual in zip(self.fields, data):
+            self.assertEqual(expected, actual['fields'])
 
 
 class BrandNameTests(TestCase, BbctTests):

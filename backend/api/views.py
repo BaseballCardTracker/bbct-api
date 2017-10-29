@@ -17,7 +17,7 @@ class ModelListView(View):
         return JsonResponse(model_json, safe=False)
 
     def post(self, request):
-        fields = json.loads(request.body)
-        model = self.model_class.objects.create(**fields)
-        model_json = serializers.serialize('json', [model])
-        return JsonResponse(model_json, safe=False)
+        fields_list = json.loads(request.body)
+        models = [self.model_class.objects.create(**fields) for fields in fields_list]
+        models_json = serializers.serialize('json', models)
+        return JsonResponse(models_json, safe=False)
