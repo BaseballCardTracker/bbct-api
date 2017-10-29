@@ -9,6 +9,10 @@ class ModelListView(View):
 
     def get(self, request):
         models = self.model_class.objects.all()
+        if request.GET:
+            query_params = {key + '__icontains': request.GET[key] for key in request.GET}
+            models = models.filter(**query_params)
+
         model_json = serializers.serialize('json', models)
         return JsonResponse(model_json, safe=False)
 

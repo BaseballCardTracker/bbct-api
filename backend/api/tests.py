@@ -17,6 +17,15 @@ class BbctTests:
         for expected, actual in zip(self.fields, result):
             self.assertEqual(expected, actual['fields'])
 
+    def test_get_query(self):
+        for field in self.fields:
+            self.model_class.objects.create(**field)
+        query = self.fields[1]
+        response = self.client.get(self.url, data=query)
+        self.assertEqual(200, response.status_code)
+        result = json.loads(response.json())
+        self.assertEqual(query, result[0]['fields'])
+
     def test_post(self):
         fields_json = json.dumps(self.fields[0])
         response = self.client.post(self.url, data=fields_json, content_type='application/json')
