@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['BBCT_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ['BBCT_DEBUG']
+DEBUG = bool(os.environ['BBCT_DEBUG'])
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
