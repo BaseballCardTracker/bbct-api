@@ -25,7 +25,11 @@ SECRET_KEY = 'l%^8=0sx)eh2232n9aapt0v4l@s7-wxk9%+64bp8se9gru$a_g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['bbct-env.tgrdmtppnd.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'bbct-env.tgrdmtppnd.us-west-2.elasticbeanstalk.com'
+]
 
 
 # Application definition
