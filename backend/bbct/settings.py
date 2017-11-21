@@ -29,7 +29,8 @@ DEBUG = env.bool('BBCT_DEBUG')
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'bbct-env.tgrdmtppnd.us-west-2.elasticbeanstalk.com'
+    'bbct.us-west-2.elasticbeanstalk.com',
+    'bbct-test.us-west-2.elasticbeanstalk.com',
 ]
 
 
