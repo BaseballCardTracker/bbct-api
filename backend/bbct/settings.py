@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     'localhost',
     'bbct.us-west-2.elasticbeanstalk.com',
     'bbct-test.us-west-2.elasticbeanstalk.com',
+    'bbct.codeapprentice.com',
 ]
 
 
