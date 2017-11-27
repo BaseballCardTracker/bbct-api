@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = env.str('BBCT_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('BBCT_DEBUG')
+DEBUG = env.bool('BBCT_DEBUG', default=False)
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
