@@ -83,8 +83,12 @@ WSGI_APPLICATION = 'bbct.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'bbct.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': env.str('RDS_DB_NAME'),
+        'USER': env.str('RDS_USERNAME'),
+        'PASSWORD': env.str('RDS_PASSWORD'),
+        'HOST': env.str('RDS_HOSTNAME'),
+        'PORT': env.str('RDS_PORT'),
     }
 }
 
