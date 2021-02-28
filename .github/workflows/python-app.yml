@@ -36,4 +36,4 @@ jobs:
       run: |
         # run tests
         export DJANGO_SETTINGS_MODULE=bbct.settings
-        cd backend && ./manage.py test
+        cd backend && python manage.py test
