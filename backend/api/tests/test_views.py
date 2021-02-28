@@ -28,3 +28,11 @@ class TestBaseballCardViews(APITestCase):
         expected = model_to_dict(card)
         actual = response.json()
         self.assertEqual(expected, actual)
+
+    def test_put_detail(self):
+        card = baker.make('api.BaseballCard')
+        url = reverse('api:baseballcard-detail', kwargs={'pk': card.pk})
+        edit_card = baker.prepare('api.BaseballCard', _fill_optional=True)
+        data = model_to_dict(edit_card, exclude=('id', ))
+        response = self.client.put(url, data=data)
+        models.BaseballCard.objects.get(**data)
