@@ -36,3 +36,11 @@ class TestBaseballCardViews(APITestCase):
         data = model_to_dict(edit_card, exclude=('id', ))
         response = self.client.put(url, data=data)
         models.BaseballCard.objects.get(**data)
+
+    def test_patch_detail(self):
+        card = baker.make('api.BaseballCard')
+        url = reverse('api:baseballcard-detail', kwargs={'pk': card.pk})
+        edit_card = baker.prepare('api.BaseballCard', _fill_optional=True)
+        data = model_to_dict(edit_card, exclude=('id', ))
+        response = self.client.patch(url, data=data)
+        models.BaseballCard.objects.get(**data)
