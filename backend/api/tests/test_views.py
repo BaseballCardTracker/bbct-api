@@ -3,6 +3,8 @@ from model_bakery import baker
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
+from api import models
+
 
 class TestBaseballCardViews(APITestCase):
     def test_get_list(self):
@@ -11,6 +13,13 @@ class TestBaseballCardViews(APITestCase):
         response = self.client.get(url)
         actual = response.json()
         self.assertQuerysetEqual(cards, actual, transform=model_to_dict)
+
+    def test_post_list(self):
+        card = baker.prepare('api.BaseballCard', _fill_optional=True)
+        url = reverse('api:baseballcard-list')
+        data = model_to_dict(card, exclude=('id', ))
+        response = self.client.post(url, data=data)
+        models.BaseballCard.objects.get(**data)
 
     def test_get_detail(self):
         card = baker.make('api.BaseballCard')
