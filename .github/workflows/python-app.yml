@@ -22,6 +22,7 @@ jobs:
         python-version: 3.9
     - name: Install dependencies
       run: |
+        # install dependencies
         cd backend
         python -m pip install --upgrade pip
         pip install flake8 pytest
@@ -34,5 +35,6 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
+        # run tests
         export DJANGO_SETTINGS_MODULE=bbct.settings
-        pytest
+        ./manage.py test
