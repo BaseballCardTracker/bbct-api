@@ -8,6 +8,8 @@ authors = ["Code-Apprentice <codeguru42@gmail.com>"]
 python = "^3.7"
 Django = "^3.1.7"
 djangorestframework = "^3.12.2"
+PyYAML = "^5.4.1"
+uritemplate = "^3.0.1"
 
 [tool.poetry.dev-dependencies]
 model-bakery = "^1.2.1"
