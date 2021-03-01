@@ -5,8 +5,7 @@ name: Python application
 
 on:
   push:
-    branches:
-    - '**'
+    branches: [ '**' ]
   pull_request:
     branches: [ master ]
 
@@ -37,4 +36,8 @@ jobs:
       run: |
         # run tests
         export DJANGO_SETTINGS_MODULE=bbct.settings
-        cd backend && poetry run python manage.py test
+        cd backend && poetry run pytest --cov=. --cov-report xml
+    - name: "Upload coverage to Codecov"
+      uses: codecov/codecov-action@v1
+      with:
+        fail_ci_if_error: true
