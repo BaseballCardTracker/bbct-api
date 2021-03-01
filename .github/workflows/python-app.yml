@@ -38,3 +38,7 @@ jobs:
         # run tests
         export DJANGO_SETTINGS_MODULE=bbct.settings
         cd backend && poetry run python manage.py test
+    - name: "Upload coverage to Codecov"
+      uses: codecov/codecov-action@v1
+      with:
+        fail_ci_if_error: true
