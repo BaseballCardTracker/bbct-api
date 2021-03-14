@@ -50,9 +50,10 @@ class TestBaseballCardViews(APITestCase):
 class TestCollectionViews(APITestCase):
     def setUp(self):
         self.user = baker.make(get_user_model())
+        self.client.force_login(self.user)
 
     def test_get_list(self):
-        collections = baker.make('api.Collection', _quantity=3)
+        collections = baker.make('api.Collection', user=self.user, _quantity=3)
         url = reverse('api:collection-list')
         response = self.client.get(url)
         actual = response.json()

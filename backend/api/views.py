@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import permissions, viewsets
 
 from api import models, serializers
 
@@ -9,5 +9,8 @@ class BaseballCardViewSet(viewsets.ModelViewSet):
 
 
 class CollectionViewSet(viewsets.ModelViewSet):
-    queryset = models.Collection.objects.all()
+    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = serializers.CollectionSerializer
+
+    def get_queryset(self):
+        return models.Collection.objects.filter(user=self.request.user)
