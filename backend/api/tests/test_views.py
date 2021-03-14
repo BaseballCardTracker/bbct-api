@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.forms import model_to_dict
 from model_bakery import baker
+from rest_framework import status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
@@ -122,3 +123,57 @@ class TestCollectionViews(APITestCase):
             edit_cards,
             transform=lambda x: x
         )
+
+
+class TestCollectionAnonymous(APITestCase):
+    def setUp(self):
+        self.user = baker.make(get_user_model())
+
+    def test_get_list_anonymous(self):
+        collections = baker.make('api.Collection', user=self.user, _quantity=3)
+        url = reverse('api:collection-list')
+        response = self.client.get(url)
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+
+    def test_post_list_anonymous(self):
+        cards = baker.make('api.BaseballCard', _quantity=3)
+        url = reverse('api:collection-list')
+        data = {
+            'user': self.user.pk,
+            'cards': [card.pk for card in cards],
+        }
+        response = self.client.post(url, data=data)
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+
+    def test_get_detail_anonymous(self):
+        cards = baker.make('api.BaseballCard', _quantity=3)
+        collection = baker.make('api.Collection', user=self.user, cards=cards)
+        url = reverse('api:collection-detail', kwargs={'pk': collection.pk})
+        response = self.client.get(url)
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+
+    def test_put_detail_anonymous(self):
+        cards = baker.make('api.BaseballCard', _quantity=3)
+        collection = baker.make('api.Collection', user=self.user, cards=cards)
+        url = reverse('api:collection-detail', kwargs={'pk': collection.pk})
+        edit_user = baker.make(get_user_model())
+        edit_cards = baker.make('api.BaseballCard', _quantity=3)
+        data = {
+            'user': edit_user.pk,
+            'cards': [card.pk for card in edit_cards],
+        }
+        response = self.client.put(url, data=data)
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
+
+    def test_patch_detail_anonymous(self):
+        cards = baker.make('api.BaseballCard', _quantity=3)
+        collection = baker.make('api.Collection', user=self.user, cards=cards)
+        url = reverse('api:collection-detail', kwargs={'pk': collection.pk})
+        edit_user = baker.make(get_user_model())
+        edit_cards = baker.make('api.BaseballCard', _quantity=3)
+        data = {
+            'user': edit_user.pk,
+            'cards': [card.pk for card in edit_cards],
+        }
+        response = self.client.patch(url, data=data)
+        self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
