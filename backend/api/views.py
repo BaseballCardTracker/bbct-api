@@ -13,4 +13,6 @@ class CollectionViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.CollectionSerializer
 
     def get_queryset(self):
+        if self.request.user.is_superuser:
+            return models.Collection.objects.all()
         return models.Collection.objects.filter(user=self.request.user)
