@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.forms import model_to_dict
 from model_bakery import baker
 from rest_framework.reverse import reverse
@@ -44,3 +45,79 @@ class TestBaseballCardViews(APITestCase):
         data = model_to_dict(edit_card, exclude=('id', ))
         response = self.client.patch(url, data=data)
         models.BaseballCard.objects.get(**data)
+
+
+class TestCollectionViews(APITestCase):
+    def setUp(self):
+        self.user = baker.make(get_user_model())
+
+    def test_get_list(self):
+        collections = baker.make('api.Collection', _quantity=3)
+        url = reverse('api:collection-list')
+        response = self.client.get(url)
+        actual = response.json()
+        self.assertQuerysetEqual(collections, actual, transform=model_to_dict)
+
+    def test_post_list(self):
+        cards = baker.make('api.BaseballCard', _quantity=3)
+        url = reverse('api:collection-list')
+        data = {
+            'user': self.user.pk,
+            'cards': [card.pk for card in cards],
+        }
+        response = self.client.post(url, data=data)
+        collection = models.Collection.objects.get(user=self.user.pk)
+        self.assertQuerysetEqual(
+            collection.cards.order_by('pk'),
+            cards,
+            transform=lambda x: x
+        )
+
+    def test_get_detail(self):
+        cards = baker.make('api.BaseballCard', _quantity=3)
+        collection = baker.make('api.Collection', user=self.user, cards=cards)
+        url = reverse('api:collection-detail', kwargs={'pk': collection.pk})
+        response = self.client.get(url)
+        expected = {
+            'id': collection.pk,
+            'user': self.user.pk,
+            'cards': [card.pk for card in cards]
+        }
+        actual = response.json()
+        self.assertEqual(expected, actual)
+
+    def test_put_detail(self):
+        cards = baker.make('api.BaseballCard', _quantity=3)
+        collection = baker.make('api.Collection', user=self.user, cards=cards)
+        url = reverse('api:collection-detail', kwargs={'pk': collection.pk})
+        edit_user = baker.make(get_user_model())
+        edit_cards = baker.make('api.BaseballCard', _quantity=3)
+        data = {
+            'user': edit_user.pk,
+            'cards': [card.pk for card in edit_cards],
+        }
+        response = self.client.put(url, data=data)
+        collection = models.Collection.objects.get(user=edit_user.pk)
+        self.assertQuerysetEqual(
+            collection.cards.order_by('pk'),
+            edit_cards,
+            transform=lambda x: x
+        )
+
+    def test_patch_detail(self):
+        cards = baker.make('api.BaseballCard', _quantity=3)
+        collection = baker.make('api.Collection', user=self.user, cards=cards)
+        url = reverse('api:collection-detail', kwargs={'pk': collection.pk})
+        edit_user = baker.make(get_user_model())
+        edit_cards = baker.make('api.BaseballCard', _quantity=3)
+        data = {
+            'user': edit_user.pk,
+            'cards': [card.pk for card in edit_cards],
+        }
+        response = self.client.patch(url, data=data)
+        collection = models.Collection.objects.get(user=edit_user.pk)
+        self.assertQuerysetEqual(
+            collection.cards.order_by('pk'),
+            edit_cards,
+            transform=lambda x: x
+        )

@@ -9,6 +9,7 @@ app_name = 'api'
 
 router = routers.DefaultRouter()
 router.register(r'baseball_cards', views.BaseballCardViewSet)
+router.register(r'collections', views.CollectionViewSet)
 
 schema_view = get_schema_view(
     title="BBCT",
