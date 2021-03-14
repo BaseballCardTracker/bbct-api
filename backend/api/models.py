@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
 
@@ -12,3 +13,8 @@ class BaseballCard(models.Model):
     player = models.CharField(max_length=32)
     team = models.CharField(max_length=32)
     position = models.CharField(max_length=32)
+
+
+class Collection(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    cards = models.ManyToManyField(BaseballCard)
