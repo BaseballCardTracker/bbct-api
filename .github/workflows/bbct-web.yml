@@ -38,7 +38,7 @@ jobs:
         cd backend && poetry run pytest --cov=. --cov-report xml
       env:
         DJANGO_SETTINGS_MODULE: bbct.settings
-        DJANGO_SECRET_KEY: ${{ env.DJANGO_SECRET_KEY }}
+        DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
     - name: "Upload coverage to Codecov"
       uses: codecov/codecov-action@v1
       with:
