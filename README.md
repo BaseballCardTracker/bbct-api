@@ -6,5 +6,3 @@ BBCT Web
 ![CodeQL](https://github.com/BaseballCardTracker/bbct-api/actions/workflows/codeql-analysis.yml/badge.svg)
 
 This is a REST API for BBCT.
-
-Test
