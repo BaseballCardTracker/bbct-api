@@ -37,6 +37,8 @@ jobs:
       env:
         DJANGO_SETTINGS_MODULE: bbct.settings
         DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+        GOOGLE_OAUTH2_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH2_CLIENT_ID }}
+        GOOGLE_OAUTH2_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH2_CLIENT_SECRET }}
     - name: "Upload coverage to Codecov"
       uses: codecov/codecov-action@v1
       with:
