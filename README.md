@@ -1,4 +1,4 @@
-BBCT Web
+BBCT API
 =
 
 ![Tests](https://github.com/BaseballCardTracker/bbct-api/actions/workflows/bbct-api.yml/badge.svg)
