@@ -18,7 +18,7 @@ model-bakery = "^1.2.1"
 flake8 = "^4.0.1"
 pytest = "^7.0.1"
 pytest-cov = "^3.0.0"
-pytest-django = "^4.1.0"
+pytest-django = "^4.5.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
