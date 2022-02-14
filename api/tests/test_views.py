@@ -20,7 +20,7 @@ class TestBaseballCardViews(APITestCase):
         card = baker.prepare('api.BaseballCard', _fill_optional=True)
         url = reverse('api:baseballcard-list')
         data = model_to_dict(card, exclude=('id', ))
-        response = self.client.post(url, data=data)
+        self.client.post(url, data=data)
         models.BaseballCard.objects.get(**data)
 
     def test_get_detail(self):
@@ -36,7 +36,7 @@ class TestBaseballCardViews(APITestCase):
         url = reverse('api:baseballcard-detail', kwargs={'pk': card.pk})
         edit_card = baker.prepare('api.BaseballCard', _fill_optional=True)
         data = model_to_dict(edit_card, exclude=('id', ))
-        response = self.client.put(url, data=data)
+        self.client.put(url, data=data)
         models.BaseballCard.objects.get(**data)
 
     def test_patch_detail(self):
@@ -44,7 +44,7 @@ class TestBaseballCardViews(APITestCase):
         url = reverse('api:baseballcard-detail', kwargs={'pk': card.pk})
         edit_card = baker.prepare('api.BaseballCard', _fill_optional=True)
         data = model_to_dict(edit_card, exclude=('id', ))
-        response = self.client.patch(url, data=data)
+        self.client.patch(url, data=data)
         models.BaseballCard.objects.get(**data)
 
 
@@ -56,7 +56,7 @@ class TestCollectionViews(APITestCase):
     def test_get_list(self):
         collections = baker.make('api.Collection', user=self.user, _quantity=2)
         other_user = baker.make(get_user_model())
-        other_collection = baker.make('api.Collection', user=other_user)
+        baker.make('api.Collection', user=other_user)
         url = reverse('api:collection-list')
         response = self.client.get(url)
         actual = response.json()
@@ -69,7 +69,7 @@ class TestCollectionViews(APITestCase):
             'user': self.user.pk,
             'cards': [card.pk for card in cards],
         }
-        response = self.client.post(url, data=data)
+        self.client.post(url, data=data)
         collection = models.Collection.objects.get(user=self.user.pk)
         self.assertQuerysetEqual(
             collection.cards.order_by('pk'),
@@ -108,7 +108,7 @@ class TestCollectionViews(APITestCase):
             'user': edit_user.pk,
             'cards': [card.pk for card in edit_cards],
         }
-        response = self.client.put(url, data=data)
+        self.client.put(url, data=data)
         collection = models.Collection.objects.get(user=edit_user.pk)
         self.assertQuerysetEqual(
             collection.cards.order_by('pk'),
@@ -140,7 +140,7 @@ class TestCollectionViews(APITestCase):
             'user': edit_user.pk,
             'cards': [card.pk for card in edit_cards],
         }
-        response = self.client.patch(url, data=data)
+        self.client.patch(url, data=data)
         collection = models.Collection.objects.get(user=edit_user.pk)
         self.assertQuerysetEqual(
             collection.cards.order_by('pk'),
@@ -168,7 +168,7 @@ class TestCollectionAnonymous(APITestCase):
         self.user = baker.make(get_user_model())
 
     def test_get_list_anonymous(self):
-        collections = baker.make('api.Collection', user=self.user, _quantity=3)
+        baker.make('api.Collection', user=self.user, _quantity=3)
         url = reverse('api:collection-list')
         response = self.client.get(url)
         self.assertEqual(status.HTTP_403_FORBIDDEN, response.status_code)
@@ -224,9 +224,9 @@ class TestCollectionSuperuser(APITestCase):
         self.client.force_login(superuser)
 
     def test_get_list_superuser(self):
-        collections = baker.make('api.Collection', user=self.user, _quantity=2)
+        baker.make('api.Collection', user=self.user, _quantity=2)
         other_user = baker.make(get_user_model())
-        other_collection = baker.make('api.Collection', user=other_user)
+        baker.make('api.Collection', user=other_user)
         url = reverse('api:collection-list')
         response = self.client.get(url)
         expected = models.Collection.objects.order_by('pk')
@@ -240,7 +240,7 @@ class TestCollectionSuperuser(APITestCase):
             'user': self.user.pk,
             'cards': [card.pk for card in cards],
         }
-        response = self.client.post(url, data=data)
+        self.client.post(url, data=data)
         collection = models.Collection.objects.get(user=self.user.pk)
         self.assertQuerysetEqual(
             collection.cards.order_by('pk'),
@@ -271,7 +271,7 @@ class TestCollectionSuperuser(APITestCase):
             'user': edit_user.pk,
             'cards': [card.pk for card in edit_cards],
         }
-        response = self.client.put(url, data=data)
+        self.client.put(url, data=data)
         collection = models.Collection.objects.get(user=edit_user.pk)
         self.assertQuerysetEqual(
             collection.cards.order_by('pk'),
@@ -289,7 +289,7 @@ class TestCollectionSuperuser(APITestCase):
             'user': edit_user.pk,
             'cards': [card.pk for card in edit_cards],
         }
-        response = self.client.patch(url, data=data)
+        self.client.patch(url, data=data)
         collection = models.Collection.objects.get(user=edit_user.pk)
         self.assertQuerysetEqual(
             collection.cards.order_by('pk'),
