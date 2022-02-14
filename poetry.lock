@@ -129,14 +129,15 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "djangorestframework"
-version = "3.12.4"
+version = "3.13.1"
 description = "Web APIs for Django, made easy."
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 
 [package.dependencies]
 django = ">=2.2"
+pytz = "*"
 
 [[package]]
 name = "envparse"
@@ -525,7 +526,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "8afdda4600407e0dd47c6a56eb44cedf0fa1080207b8bb77ffa0bd4830b060d7"
+content-hash = "6afa423bc09add998e3b7c26d81ea0212e2df2980a060954e61128fa0234ee89"
 
 [metadata.files]
 asgiref = [
@@ -671,8 +672,8 @@ django = [
     {file = "Django-3.2.12.tar.gz", hash = "sha256:9772e6935703e59e993960832d66a614cf0233a1c5123bc6224ecc6ad69e41e2"},
 ]
 djangorestframework = [
-    {file = "djangorestframework-3.12.4-py3-none-any.whl", hash = "sha256:6d1d59f623a5ad0509fe0d6bfe93cbdfe17b8116ebc8eda86d45f6e16e819aaf"},
-    {file = "djangorestframework-3.12.4.tar.gz", hash = "sha256:f747949a8ddac876e879190df194b925c177cdeb725a099db1460872f7c0a7f2"},
+    {file = "djangorestframework-3.13.1-py3-none-any.whl", hash = "sha256:24c4bf58ed7e85d1fe4ba250ab2da926d263cd57d64b03e8dcef0ac683f8b1aa"},
+    {file = "djangorestframework-3.13.1.tar.gz", hash = "sha256:0c33407ce23acc68eca2a6e46424b008c9c02eceb8cf18581921d0092bc1f2ee"},
 ]
 envparse = [
     {file = "envparse-0.2.0.tar.gz", hash = "sha256:4f3b9a27bb55d27f124eb4adf006fec05e4588891c9a054a183a112645056eb7"},
