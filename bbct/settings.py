@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',
     'api.apps.ApiConfig',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
