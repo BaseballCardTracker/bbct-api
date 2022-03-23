@@ -10,9 +10,11 @@ RUN apt install curl
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
 # install dependencies
-COPY . /bbct
+COPY pyproject.toml /bbct
+COPY poetry.lock /bbct
 ENV PATH=/root/.poetry/bin:${PATH}
 RUN poetry install
+COPY . /bbct
 
 EXPOSE 8000
 CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
