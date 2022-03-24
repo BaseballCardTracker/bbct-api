@@ -16,5 +16,7 @@ ENV PATH=/root/.poetry/bin:${PATH}
 RUN poetry install
 COPY . /bbct
 
+RUN poetry run python manage.py migrate
+
 EXPOSE 8000
 CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
