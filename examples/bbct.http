@@ -2,6 +2,10 @@ GET http://localhost:8000/api/baseball_cards/
 
 ###
 
+GET http://localhost:8000/api/baseball_cards/1/
+
+###
+
 POST http://localhost:8000/api/baseball_cards/
 
 {
