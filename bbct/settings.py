@@ -83,9 +83,13 @@ WSGI_APPLICATION = 'bbct.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": env('DB_ENGINE', 'django.db.backends.sqlite3'),
+        "NAME": env('DB_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
+        "USER": env('DB_USER', ''),
+        "PASSWORD": env('DB_PASSWORD', ''),
+        "HOST": env('DB_HOST', ''),
+        "PORT": env('DB_PORT', ''),
     }
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
