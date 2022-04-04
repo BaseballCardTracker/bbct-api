@@ -2,6 +2,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from rest_framework import routers
 from rest_framework.schemas import get_schema_view
+from rest_framework_json_api.schemas.openapi import SchemaGenerator
 
 from api import views
 
@@ -14,7 +15,8 @@ router.register(r'collections', views.CollectionViewSet, 'collection')
 schema_view = get_schema_view(
     title="BBCT",
     description="Baseball Card Tracker API",
-    version="1.0.0"
+    version="1.0.0",
+    generator_class=SchemaGenerator,
 )
 
 urlpatterns = [
