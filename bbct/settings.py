@@ -150,6 +150,7 @@ REST_FRAMEWORK = {
         'rest_framework_json_api.renderers.JSONRenderer',
         'rest_framework_json_api.renderers.BrowsableAPIRenderer',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework_json_api.schemas.openapi.AutoSchema',
     'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
     'TEST_REQUEST_RENDERER_CLASSES': (
         'rest_framework_json_api.renderers.JSONRenderer',
