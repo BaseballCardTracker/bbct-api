@@ -1,7 +1,7 @@
 BBCT API
 =
 
-![Tests](https://github.com/BaseballCardTracker/bbct-api/actions/workflows/bbct-api.yml/badge.svg)
+![Tests](https://github.com/BaseballCardTracker/bbct-api/actions/workflows/tests.yml/badge.svg)
 [![codecov](https://codecov.io/gh/BaseballCardTracker/bbct-api/branch/master/graph/badge.svg?token=E4I3IK3VYP)](https://codecov.io/gh/BaseballCardTracker/bbct-api)
 ![CodeQL](https://github.com/BaseballCardTracker/bbct-api/actions/workflows/codeql-analysis.yml/badge.svg)
 
