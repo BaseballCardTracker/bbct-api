@@ -3,21 +3,35 @@ version: '3.8'
 services:
   api:
     build: .
+    container_name: api
     command: poetry run gunicorn bbct.wsgi:application --bind 0.0.0.0:8000
-    expose:
-      - 8000
     depends_on:
       - db
     env_file:
       - .env
+    volumes:
+      # Edit the line below to point to your static files directory
+      - static_volume:/home/app/static
+      # End of line
+
+
   nginx:
     build: ./nginx
-    ports:
-      - "8000:80"
     depends_on:
       - api
+    volumes:
+      # Edit the line below to point to your static files directory
+      - static_volume:/home/app/static
+      # End of line, the rest remains same
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
+    ports:
+      - "80:80"
+      - "443:443"
+
+
   db:
-    image: postgres:13.0-alpine
+    image: postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
@@ -27,5 +41,13 @@ services:
       - POSTGRES_PASSWORD=$DB_PASSWORD
       - POSTGRES_DB=$DB_NAME
 
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+
 volumes:
   postgres_data:
+  certbot:
+  static_volume:
