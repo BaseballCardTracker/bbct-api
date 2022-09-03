@@ -10,6 +10,9 @@ services:
       - db
     env_file:
       - .env
+    volumes:
+      - static_volume:/bbct/static
+
   nginx:
     build: ./nginx
     ports:
@@ -31,3 +34,4 @@ services:
 
 volumes:
   postgres_data:
+  static_volume:
