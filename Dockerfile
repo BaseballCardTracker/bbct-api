@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apt update && apt install -y netcat
 
 # install curl
-RUN apt install curl
+RUN apt install -y curl
 
 # create user
 RUN useradd -ms /bin/bash bbct
