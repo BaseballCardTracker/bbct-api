@@ -6,20 +6,20 @@ ENV PYTHONUNBUFFERED 1
 RUN apt update && apt install -y netcat
 
 # install curl
-RUN apt install curl
+RUN apt install -y curl
 
 # create user
 RUN useradd -ms /bin/bash bbct
 USER bbct
 
 # install poetry
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # install dependencies
 WORKDIR /bbct
 COPY pyproject.toml /bbct
 COPY poetry.lock /bbct
-ENV PATH=/home/bbct/.poetry/bin:${PATH}
+ENV PATH=/home/bbct/.local/bin:${PATH}
 RUN poetry install
 COPY --chown=bbct . /bbct
 
