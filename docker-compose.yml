@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     volumes:
-      - static_volume:/bbct/static
+      - ./static:/bbct/static
 
   nginx:
     build: ./nginx
@@ -34,4 +34,3 @@ services:
 
 volumes:
   postgres_data:
-  static_volume:
