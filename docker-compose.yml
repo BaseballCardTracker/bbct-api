@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./static:/bbct/static
+      - static_files:/bbct/static
 
   nginx:
     build: ./nginx
@@ -19,6 +19,9 @@ services:
       - "8000:80"
     depends_on:
       - api
+    volumes:
+      - static_files:/static
+
   db:
     image: postgres:13.0-alpine
     volumes:
@@ -34,3 +37,4 @@ services:
 
 volumes:
   postgres_data:
+  static_files:
