@@ -10,6 +10,8 @@ RUN apt install -y curl
 
 # create user
 RUN useradd -ms /bin/bash bbct
+RUN mkdir -p /bbct/static
+RUN chown -R bbct /bbct
 USER bbct
 
 # install poetry
