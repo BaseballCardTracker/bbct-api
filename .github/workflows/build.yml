@@ -11,7 +11,7 @@ on:
       - '*'
 
 jobs:
-  build:
+  api:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -35,6 +35,33 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+  nginx:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Docker metadata
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        images: codeguru42/bbct-nginx
+        tags: |
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=sha
+    - name: Login to DockerHub
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: ./nginx
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
