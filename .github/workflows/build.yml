@@ -22,6 +22,7 @@ jobs:
       with:
         images: codeguru42/bbct-api
         tags: |
+          type=raw,value=latest,enable={{is_default_branch}}
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
           type=sha
@@ -49,6 +50,7 @@ jobs:
       with:
         images: codeguru42/bbct-nginx
         tags: |
+          type=raw,value=latest,enable={{is_default_branch}}
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
           type=sha
