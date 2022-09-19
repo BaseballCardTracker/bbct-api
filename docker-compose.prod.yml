@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  api:
+    image: codeguru42/bbct-api
+    command: poetry run gunicorn bbct.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 8000
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - static_files:/bbct/static
+
+  nginx:
+    image: codeguru42/bbct-nginx
+    ports:
+      - "8000:80"
+    depends_on:
+      - api
+    volumes:
+      - static_files:/static
+
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=$DB_USER
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+      - POSTGRES_DB=$DB_NAME
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
+  static_files:
