@@ -6,7 +6,7 @@ authors = ["Code-Apprentice <codeguru42@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-Django = "^3.2.15"
+Django = "^3.2.17"
 djangorestframework = "^3.13.1"
 PyYAML = "^5.4.1"
 uritemplate = "^4.1.1"
